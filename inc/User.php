@@ -52,12 +52,9 @@ class User
             $stmt->bindParam('password', $password, PDO::PARAM_STR);
             $stmt->bindParam('type_id', $type_id, PDO::PARAM_INT);
             $stmt->execute();
-            $rows = $stmt->fetch();
-            var_dump($rows);
-            return 'Account created successfully. Login now.';
         }
 
-        return SERVER_ERROR;
+        return 'Account created successfully. Login now.';
     }
 
     /**
@@ -78,10 +75,16 @@ class User
                 $_SESSION[LOGGED_IN] = true;
                 $_SESSION[USER_NAME] = $row['name'];
                 $_SESSION[USER_ID] = $row['id'];
+                $_SESSION[USER_TYPE_ID] = $row['type_id'];
                 return 'You are logged in now. $_SESSION is active.';
             } else
                 return 'Cannot find you? Have you registered?';
         }
         return SERVER_ERROR;
+    }
+
+    public function logout() {
+        session_unset();
+        return 'Logged out.';
     }
 }

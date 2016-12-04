@@ -19,5 +19,6 @@ define('CITIZEN', 2);
 define('LOGGED_IN', 'LOGGED_IN');
 define('USER_NAME', 'USER_NAME');
 define('USER_ID', 'USER_ID');
+define('USER_TYPE_ID', 'USER_TYPE_ID');
 
 ?>
