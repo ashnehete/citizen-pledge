@@ -130,8 +130,9 @@
 .picsec, .prosec,.eventsec{
 	background-color:white;
 	height:552px;
-	width:30%;
+	width:390px;
 	margin:12px;
+	margin-left:40px;
 }
 .picsec{
 	margin-left:40px;
