@@ -145,6 +145,12 @@
   max-height: 180px;
   overflow-x: hidden;
 }
+.dropdown-menu{
+  height: auto;
+  max-height: 180px;
+  overflow-x: hidden;
+  font-size:1em;
+}
 .glyphicon{
   color:#f23c2b;
 }
@@ -238,7 +244,18 @@ li.list-group-item,a.list-group-item{
       <ul class="nav navbar-nav navbar-right">
         <li><img src="https://www.drupal.org/files/profile_default.png" class="propic"></img></li>
         <li><a href="#" class="uname"> Username</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-bell notification-icon"></span> Notifications</a></li>
+        <li class="dropdown"><a href="#" class=""btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-bell notification-icon"></span> Notifications<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Amy messaged you!</a></li>
+            <li><a href="#">Sean liked your post!</a></li>
+            <li><a href="#">DigitalOcean posted a new event!</a></li>
+            <li><a href="#">Someone mentioned you!</a></li>
+            <li><a href="#">Amy liked your post!</a></li>
+            <li><a href="#">Aashish tagged you!</a></li>
+            <li><a href="#">Someone mentioned you!</a></li>
+            <li><a href="#">Gaurav messaged you!</a></li>
+          </ul>
+        </li>
         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
       </ul>
     </div>
