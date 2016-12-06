@@ -212,6 +212,11 @@ li.list-group-item,a.list-group-item{
   padding:10px;
 }
 
+.col-sm-6 a{
+  color:inherit;
+  text-decoration: none;
+}
+
 </style>
 </head>
 <body>
@@ -239,13 +244,14 @@ li.list-group-item,a.list-group-item{
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Feed</a></li>
+        <li><a href="file:///C:/Users/admin/citizen-pledge/feed.php">Feed</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><img src="https://www.drupal.org/files/profile_default.png" class="propic"></img></li>
         <li><a href="#" class="uname"> Username</a></li>
         <li class="dropdown"><a href="#" class=""btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-bell notification-icon"></span> Notifications<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
+            <ul class="text-right" id="notif"><a href="#">Dismiss all</a></ul>
             <li><a href="#">Amy messaged you!</a></li>
             <li><a href="#">Sean liked your post!</a></li>
             <li><a href="#">DigitalOcean posted a new event!</a></li>
@@ -302,19 +308,19 @@ li.list-group-item,a.list-group-item{
         </div>
         <div class="col-sm-6">
           <div class="panel panel-default">
-              <div class="panel-heading">Event 1<i class="fa fa-link fa-1x"></i></div>
+              <div class="panel-heading"><a href ="#">Event 1<i class="fa fa-link fa-1x"></i></a></div>
               <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum leo vitae orci cursus, faucibus sollicitudin lorem fermentum. Quisque at risus urna. Vivamus ut augue lacinia, egestas ante nec, rutrum lectus. Nam ut interdum ex, sit amet egestas magna. Curabitur malesuada sagittis neque, non volutpat augue efficitur ac. Pellentesque sapien neque, pellentesque in mi porttitor, bibendum scelerisque magna. Nulla et libero nec mi commodo convallis. Etiam euismod diam non varius facilisis. Mauris bibendum rhoncus lacus. Praesent gravida elementum consequat.</div>
             </div>
           <div class="panel panel-default">
-              <div class="panel-heading">Event 2<i class="fa fa-link fa-1x"></i></div>
+              <div class="panel-heading"><a href ="#">Event 2<i class="fa fa-link fa-1x"></i></a></div>
               <div class="panel-body">Phasellus suscipit lectus ante, at tempus turpis sagittis ac. Sed at interdum elit. Donec in egestas nisl. Aliquam sit amet magna sit amet justo rhoncus aliquam eu ac magna. Aenean tempor sed nunc sit amet sagittis. Donec tempus, metus sit amet dignissim volutpat, lectus elit blandit ipsum, ut fermentum tortor est eget purus. Donec eget tortor ultrices augue posuere facilisis a sed lectus. Donec faucibus magna sollicitudin, volutpat dolor et, varius erat. Donec eleifend ultricies tellus, ac pulvinar metus facilisis a. Duis blandit molestie leo, quis lacinia metus vehicula vitae. Morbi volutpat sagittis diam, vitae viverra turpis sodales nec. Nunc ultricies, lorem eu eleifend sodales, libero nibh scelerisque sem, eget posuere nisi lectus lacinia felis. Etiam arcu diam, efficitur nec malesuada at, sodales ut tellus. Sed sagittis semper sem, vitae tempor odio convallis lobortis. Phasellus suscipit volutpat aliquam.</div>
             </div>
           <div class="panel panel-default">
-              <div class="panel-heading">Event 3<i class="fa fa-link fa-1x"></i></div>
+              <div class="panel-heading"><a href ="#">Event 3<i class="fa fa-link fa-1x"></i></a></div>
               <div class="panel-body">Sed tincidunt semper nisi, sit amet vehicula nibh blandit eu. Phasellus nec feugiat erat, non efficitur nulla. Etiam porttitor velit quis lacus auctor efficitur. Phasellus sapien odio, auctor vel sollicitudin vitae, semper ut enim. Maecenas eget nulla at purus tincidunt pharetra ut vitae arcu. Vestibulum hendrerit, nisi in ullamcorper porttitor, elit dui convallis quam, eu elementum magna augue vel libero. Sed vestibulum sollicitudin dui, id tempus risus. Proin et vehicula felis. Integer malesuada, magna ac porta faucibus, velit mi placerat erat, eget sodales eros mi at nisl. Nullam rhoncus, nulla ornare eleifend vehicula, tellus mauris rhoncus diam, a tincidunt nisl nulla nec ligula. Fusce eget risus eu odio condimentum congue. Donec vulputate, odio sed elementum maximus, turpis ipsum volutpat dui, eu fringilla ipsum erat a nulla. Vivamus lacinia nisi a quam fermentum dictum.</div>
             </div>
             <div class="panel panel-default">
-              <div class="panel-heading">Event 4<i class="fa fa-link fa-1x"></i></div>
+              <div class="panel-heading"><a href ="#">Event 4<i class="fa fa-link fa-1x"></i></a></div>
               <div class="panel-body">Integer convallis ipsum ligula, et euismod tellus suscipit ut. Nullam consequat laoreet urna malesuada facilisis. Mauris id eros eu nisi venenatis faucibus. Etiam vel fringilla massa, sed porttitor libero. Fusce ipsum mi, commodo sit amet diam a, rhoncus rhoncus odio. Proin dictum erat sollicitudin, tempus mauris id, scelerisque nunc. Pellentesque consectetur pretium felis, a laoreet enim condimentum maximus. Sed volutpat pharetra metus, quis condimentum dolor vestibulum non. Cras et rutrum ante. Aliquam erat volutpat. Nunc egestas lobortis elit, a porta felis tincidunt euismod. Fusce et arcu et mi blandit blandit at quis quam. Suspendisse at mauris massa. Nulla lobortis neque ipsum, eu malesuada ante tempus ut. Ut porttitor sit amet ex ac imperdiet. Maecenas consequat risus vel auctor feugiat.</div>
             </div>
         </div>

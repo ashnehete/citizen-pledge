@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Add an Event</title>
+  <title>Feed</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -9,16 +9,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
-   body{
-  font-family:Montserrat;
-  background:url("BG.jpg");
-  background-size: cover;
- 	height:100vh;
-  }
 .navbar-custom {
   border-radius:0;
   background-color: #f23c2b;
   border:none;
+  font-family:Montserrat;
 }
 .navbar-custom .navbar-brand {
   color: #ffffff;
@@ -113,12 +108,6 @@
 .navbar-custom .navbar-link:hover {
   color: #ffffff;
 }
-.propic{
-	border-radius:100%;
-	padding:none;
-	height:2em;
-	margin-top:0.75em;
-}
 .form-control{
 	border-radius:0;
 	width:280px !important;
@@ -127,103 +116,56 @@
 	border-radius:0;
 	margin-right:20px !important;
 }
-.picsec, .prosec,.eventsec{
-	background-color:white;
-	height:552px;
-	width:390px;
-	margin:12px;
-	margin-left:40px;
-}
-.picsec{
-	margin-left:40px;
-}
-.pic img{
-	margin-left:45px;
-	margin-top:30px;
-	border-radius:100%;
-	height:290px;
-	padding:20px;
-}
-.name{
-	text-align:center;
-	font-size:24px;
-	font-weight:bold;
-	color:#f23c2b
-}
-.container{
-	margin:0;
-	padding:0;
-	margin-left:40px;
-	padding-left:20px;
-}
-.addEvent{
-	margin-left:95px;
-	padding:0;
-	margin-top:80px;
-	width:222px;
-}
-.btn-block{
-	width:220px;
-	height:60px;
-	font-size:22px;
-	border:none;
-	background-color:#f23c2b;
-}
-.prosec .list{
-	color:#f23c2b;
-	font-weight:bold;
-}
-
-.prosec .push{
-	margin-top:30px;
+.dropdown-menu{
+  height: auto;
+  max-height: 180px;
+  overflow-x: hidden;
+  font-size:1em;
 }
 .glyphicon{
-	color:#f23c2b;
+  color:#f23c2b;
 }
 .glyphicon-log-in, .glyphicon-bell{
   color:#ffffff;
 }
-li.list-group-item,a.list-group-item{
-	border-radius:0 !important;
-	height:60px;
-	line-height:40px;
-	font-weight:bold;
-	color:black;
+#fixed-nav-bar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 50px;
+  margin-bottom:30px;
 }
-#list1{
-	height:271px;
-	overflow:auto;
+.propic{
+	border-radius:100%;
+	padding:none;
+	height:2em;
+	margin-top:0.75em;
 }
-#list2{
-	height:161px;
-	overflow:auto;
+.col-sm-6 a{
+  color:inherit;
+  text-decoration: none;
 }
-li.list-group-item{
-	color:#f23c2b;
-	font-size:20px;
+.col-sm-6,.col-sm-2{
+ margin-top:70px;
 }
-a.list-group-item:hover{
-	background-color:#f23c2b;
-	color:white;
+.container .col-sm-6 .panel-heading{
+  font-size: 1.2em;
 }
-.pic,.name,.addEvent{
-
+.container .col-sm-6 .panel-body{
+  height: auto;
+  max-height: 180px;
+  overflow-x: hidden;
 }
-.tooltip{
-	display:none;
-	position:absolute;
-	border:1px solid #333;
-	background-color:#161616;
-	border-radius:5px;
-	padding:10px;
-	color:#fff;
-	font-size:12px Arial;
+.container .row{
+  font-size: 1.25em;
 }
 </style>
-  </head>
-  <body>
+</head>
+<body>
 
-<nav class="navbar navbar-custom">
+<nav class="navbar navbar-custom" id="fixed-nav-bar">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -245,10 +187,8 @@ a.list-group-item:hover{
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Page 1</a></li>
-        <li><a href="#">Page 2</a></li>
-        <li><a href="#">Page 3</a></li>
+        <li><a href="file:///C:/Users/admin/citizen-pledge/citizenhome.php#">Home</a></li>
+        <li class="active"><a href="#">Feed</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><img src="https://www.drupal.org/files/profile_default.png" class="propic"></img></li>
@@ -271,113 +211,34 @@ a.list-group-item:hover{
     </div>
   </div>
 </nav>
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-4 picsec">
-			<div class="row">
-				<div class="col-sm-12 pic">
-					<img src="https://www.drupal.org/files/profile_default.png" ></img>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12 name">
-					<p>NGO Name</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-12 addEvent">
-					<button type = "button" class = "btn btn-danger btn-block btn-lg">+ Add New Event</button>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4 prosec">
-			<div class="row push">
-				<div class="col-sm-4 list ">
-					Short description: 
-				</div>
-				<div class="col-sm-8 desc">
-					Short parapraph(Max 6 lines)<br><br><br><br><br>
-				</div>
-			</div>
-			<div class="row push">
-				<div class="col-sm-4 list ">
-					Number of successful events: 
-				</div>
-				<div class="col-sm-8 desc">
-					Integer
-				</div>
-			</div>
-			<div class="row push">
-				<div class="col-sm-4 list ">
-					Total pledges till date: 
-				</div>
-				<div class="col-sm-8 desc">
-					Integer
-				</div>
-			</div>
-			<div class="row push">
-				<div class="col-sm-4 list ">
-					Head of Organization:
-				</div>
-				<div class="col-sm-8 desc">
-					Name
-				</div>
-			</div>
-			<div class="row push">
-				<div class="col-sm-4 list ">
-					Most successful event:
-				</div>
-				<div class="col-sm-8 desc">
-					Name
-				</div>
-			</div>
-			<div class="row push">
-				<div class="col-sm-4 list ">
-					Contact Info:
-				</div>
-				<div class="col-sm-8 desc">
-					 <i class="glyphicon glyphicon-envelope"></i> Email<br>
-					 <i class="glyphicon glyphicon-phone"></i> Phone Number
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4 eventsec">
-			<div class="row">
-				<div class="list-group">
-					<li class="list-group-item">Upcoming events</li>
-					<div id="list1">
-		  				<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> First event</a>
-		  				<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> First event</a>
-		  				<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> First event</a>
-		  				<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> First event</a>
-						<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> Second event</a>
-						<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> Third event</a>
-					</div>
-					<li class="list-group-item">Past Events</li>
-					<div id="list2">
-						<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> First event</a>
-						<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> Second event</a>
-						<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> Third event</a>
-						<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> Third event</a>
-						<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> Third event</a>
-						<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> Third event</a>
-						<a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> Third event</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  
+<div class="container">
+  <div class="row">
+      <div class="col-sm-3"><!--left col-->
+        <div class="hold">
+        </div>
+      </div>
+      <div class="col-sm-6">
+          <div class="panel panel-default">
+            <div class="panel-heading"><a href ="#">Event 1<i class="fa fa-link fa-1x"></i></a></div>
+            <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dictum leo vitae orci cursus, faucibus sollicitudin lorem fermentum. Quisque at risus urna. Vivamus ut augue lacinia, egestas ante nec, rutrum lectus. Nam ut interdum ex, sit amet egestas magna. Curabitur malesuada sagittis neque, non volutpat augue efficitur ac. Pellentesque sapien neque, pellentesque in mi porttitor, bibendum scelerisque magna. Nulla et libero nec mi commodo convallis. Etiam euismod diam non varius facilisis. Mauris bibendum rhoncus lacus. Praesent gravida elementum consequat.</div>
+            </div>
+          <div class="panel panel-default">
+            <div class="panel-heading"><a href ="#">Event 2<i class="fa fa-link fa-1x"></i></a></div>
+            <div class="panel-body">Phasellus suscipit lectus ante, at tempus turpis sagittis ac. Sed at interdum elit. Donec in egestas nisl. Aliquam sit amet magna sit amet justo rhoncus aliquam eu ac magna. Aenean tempor sed nunc sit amet sagittis. Donec tempus, metus sit amet dignissim volutpat, lectus elit blandit ipsum, ut fermentum tortor est eget purus. Donec eget tortor ultrices augue posuere facilisis a sed lectus. Donec faucibus magna sollicitudin, volutpat dolor et, varius erat. Donec eleifend ultricies tellus, ac pulvinar metus facilisis a. Duis blandit molestie leo, quis lacinia metus vehicula vitae. Morbi volutpat sagittis diam, vitae viverra turpis sodales nec. Nunc ultricies, lorem eu eleifend sodales, libero nibh scelerisque sem, eget posuere nisi lectus lacinia felis. Etiam arcu diam, efficitur nec malesuada at, sodales ut tellus. Sed sagittis semper sem, vitae tempor odio convallis lobortis. Phasellus suscipit volutpat aliquam.</div>
+            </div>
+          <div class="panel panel-default">
+            <div class="panel-heading"><a href ="#">Event 3<i class="fa fa-link fa-1x"></i></a></div>
+            <div class="panel-body">Sed tincidunt semper nisi, sit amet vehicula nibh blandit eu. Phasellus nec feugiat erat, non efficitur nulla. Etiam porttitor velit quis lacus auctor efficitur. Phasellus sapien odio, auctor vel sollicitudin vitae, semper ut enim. Maecenas eget nulla at purus tincidunt pharetra ut vitae arcu. Vestibulum hendrerit, nisi in ullamcorper porttitor, elit dui convallis quam, eu elementum magna augue vel libero. Sed vestibulum sollicitudin dui, id tempus risus. Proin et vehicula felis. Integer malesuada, magna ac porta faucibus, velit mi placerat erat, eget sodales eros mi at nisl. Nullam rhoncus, nulla ornare eleifend vehicula, tellus mauris rhoncus diam, a tincidunt nisl nulla nec ligula. Fusce eget risus eu odio condimentum congue. Donec vulputate, odio sed elementum maximus, turpis ipsum volutpat dui, eu fringilla ipsum erat a nulla. Vivamus lacinia nisi a quam fermentum dictum.</div>
+            </div>
+          <div class="panel panel-default">
+            <div class="panel-heading"><a href ="#">Event 4<i class="fa fa-link fa-1x"></i></a></div>
+            <div class="panel-body">Integer convallis ipsum ligula, et euismod tellus suscipit ut. Nullam consequat laoreet urna malesuada facilisis. Mauris id eros eu nisi venenatis faucibus. Etiam vel fringilla massa, sed porttitor libero. Fusce ipsum mi, commodo sit amet diam a, rhoncus rhoncus odio. Proin dictum erat sollicitudin, tempus mauris id, scelerisque nunc. Pellentesque consectetur pretium felis, a laoreet enim condimentum maximus. Sed volutpat pharetra metus, quis condimentum dolor vestibulum non. Cras et rutrum ante. Aliquam erat volutpat. Nunc egestas lobortis elit, a porta felis tincidunt euismod. Fusce et arcu et mi blandit blandit at quis quam. Suspendisse at mauris massa. Nulla lobortis neque ipsum, eu malesuada ante tempus ut. Ut porttitor sit amet ex ac imperdiet. Maecenas consequat risus vel auctor feugiat.</div>
+            </div>
+        </div>
+  </div>
 </div>
-<script>
-	$('a.list-group-item').hover(function(){
-		$(this).find('.glyphicon-calendar').css(
-		{'color':'white'});
-	});
-	$('a.list-group-item').mouseleave(function(){
-		$(this).find('.glyphicon-calendar').css(
-		{'color':'#f23c2b'});
-	});
-	
-</script>
+
 </body>
 </html>
+
