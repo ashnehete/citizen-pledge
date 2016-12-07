@@ -219,6 +219,12 @@ a.list-group-item:hover{
 	color:#fff;
 	font-size:12px Arial;
 }
+.dropdown-menu{
+  height: auto;
+  max-height: 180px;
+  overflow-x: hidden;
+  font-size:1em;
+}
 </style>
   </head>
   <body>

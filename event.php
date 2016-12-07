@@ -233,6 +233,12 @@
         .glyphicon-log-in, .glyphicon-bell{
             color:#ffffff;
         }
+        .dropdown-menu{
+            height: auto;
+            max-height: 180px;
+            overflow-x: hidden;
+            font-size:1em;
+        }
     </style>
 </head>
 <body>
