@@ -131,6 +131,11 @@
   max-height: 200px;
   overflow-x: hidden;
 }
+#list-1{
+  max-height: 150px;
+  height:auto;
+  overflow-x:hidden;
+}
 .container .row .btn {
   background-color: #e7e7e7; 
   color: black;
@@ -171,6 +176,9 @@ li.list-group-item,a.list-group-item{
   line-height:40px;
   font-weight:bold;
   color:black;
+}
+#list-1 > a:hover > .glyphicon-user{
+  color:white;
 }
 .hold{
   position:fixed;
@@ -272,9 +280,20 @@ li.list-group-item,a.list-group-item{
   <div class="row">
       <div class="col-sm-3"><!--left col-->
         <div class="hold">
-        <li class="list-group-item text-muted">Events Pledged <i class="fa fa-dashboard fa-1x"></i></li>
+        <li class="list-group-item text-muted">NGO Pledged <i class="fa fa-dashboard fa-1x"></i></li>
             <ul class="list-group">
                 <div id="list-1">
+                  <a href="#" class="list-group-item " ><span class="glyphicon glyphicon-user "></span> NGO 1</a>
+                  <a href="#" class="list-group-item " ><span class="glyphicon glyphicon-user "></span> NGO 2</a>
+                  <a href="#" class="list-group-item " ><span class="glyphicon glyphicon-user "></span> NGO 3</a>
+                  <a href="#" class="list-group-item " ><span class="glyphicon glyphicon-user "></span> NGO 4</a>
+                  <a href="#" class="list-group-item " ><span class="glyphicon glyphicon-user "></span> NGO 5</a>
+                  <a href="#" class="list-group-item " ><span class="glyphicon glyphicon-user "></span> NGO 6</a>
+                </div>
+            </ul> 
+        <li class="list-group-item text-muted">Events Pledged <i class="fa fa-dashboard fa-1x"></i></li>
+            <ul class="list-group">
+                <div id="list-2">
                   <a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> Event 1</a>
                   <a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> Event 2</a>
                   <a href="#" class="list-group-item " ><span class="glyphicon glyphicon-calendar "></span> Event 3</a>
@@ -302,7 +321,7 @@ li.list-group-item,a.list-group-item{
               </div>  
           </div>
         </div>
-        </div>
+      </div>
         <div>
 
         </div>
