@@ -1,14 +1,19 @@
 <?php
 include_once 'inc/setup.php';
-include_once 'inc/Event.php';
+include_once 'inc/User.php';
 
-$event = new Event($db);
-$allEvents = $event->getAllEvents();
+$user = new User($db);
+
+if (isset($_GET['id']))
+    $ngo = $user->getNgoDetails($_GET['id']);
+else
+    $ngo = $user->getNgoDetails($_SESSION[USER_ID]);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Feed</title>
+    <title>Citizen Pledge</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -16,11 +21,17 @@ $allEvents = $event->getAllEvents();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: url("img/BG.jpg");
+            background-size: cover;
+            height: 100vh;
+        }
+
         .navbar-custom {
             border-radius: 0;
             background-color: #f23c2b;
             border: none;
-            font-family: 'Montserrat', sans-serif;
         }
 
         .navbar-custom .navbar-brand {
@@ -137,6 +148,13 @@ $allEvents = $event->getAllEvents();
             color: #ffffff;
         }
 
+        .propic {
+            border-radius: 100%;
+            padding: 0;
+            height: 2em;
+            margin-top: 0.75em;
+        }
+
         .form-control {
             border-radius: 0;
             width: 280px !important;
@@ -147,11 +165,62 @@ $allEvents = $event->getAllEvents();
             margin-right: 20px !important;
         }
 
-        .dropdown-menu {
-            height: auto;
-            max-height: 180px;
-            overflow-x: hidden;
-            font-size: 1em;
+        .picsec, .prosec, .eventsec {
+            background-color: white;
+            height: 552px;
+            width: 390px;
+            margin: 12px;
+            margin-left: 40px;
+        }
+
+        .picsec {
+            margin-left: 40px;
+        }
+
+        .pic img {
+            margin-left: 45px;
+            margin-top: 30px;
+            border-radius: 100%;
+            height: 290px;
+            padding: 20px;
+        }
+
+        .name {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #f23c2b
+        }
+
+        .container {
+            margin: 0;
+            padding: 0;
+            margin-left: 40px;
+            padding-left: 20px;
+        }
+
+        .addEvent {
+            margin-left: 95px;
+            padding: 0;
+            margin-top: 80px;
+            width: 222px;
+        }
+
+        .btn-block {
+            width: 220px;
+            height: 60px;
+            font-size: 22px;
+            border: none;
+            background-color: #f23c2b;
+        }
+
+        .prosec .list {
+            color: #f23c2b;
+            font-weight: bold;
+        }
+
+        .prosec .push {
+            margin-top: 30px;
         }
 
         .glyphicon {
@@ -162,50 +231,60 @@ $allEvents = $event->getAllEvents();
             color: #ffffff;
         }
 
-        #fixed-nav-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-            width: 100%;
-            height: 50px;
-            margin-bottom: 30px;
+        li.list-group-item, a.list-group-item {
+            border-radius: 0 !important;
+            height: 60px;
+            line-height: 40px;
+            font-weight: bold;
+            color: black;
         }
 
-        .propic {
-            border-radius: 100%;
-            padding: 0;
-            height: 2em;
-            margin-top: 0.75em;
+        #list1 {
+            height: 271px;
+            overflow: auto;
         }
 
-        .col-sm-6 a {
-            color: inherit;
-            text-decoration: none;
+        #list2 {
+            height: 161px;
+            overflow: auto;
         }
 
-        .col-sm-6, .col-sm-2 {
-            margin-top: 70px;
+        li.list-group-item {
+            color: #f23c2b;
+            font-size: 20px;
         }
 
-        .container .col-sm-6 .panel-heading {
-            font-size: 1.2em;
+        a.list-group-item:hover {
+            background-color: #f23c2b;
+            color: white;
         }
 
-        .container .col-sm-6 .panel-body {
+        .pic, .name, .addEvent {
+
+        }
+
+        .tooltip {
+            display: none;
+            position: absolute;
+            border: 1px solid #333;
+            background-color: #161616;
+            border-radius: 5px;
+            padding: 10px;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .dropdown-menu {
             height: auto;
             max-height: 180px;
             overflow-x: hidden;
-        }
-
-        .container .row {
-            font-size: 1.25em;
+            font-size: 1em;
         }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-custom" id="fixed-nav-bar">
+<nav class="navbar navbar-custom">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -227,8 +306,7 @@ $allEvents = $event->getAllEvents();
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="./">Home</a></li>
-                <li class="active"><a href="#">Feed</a></li>
+                <li class="active"><a href="./">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><img src="<?= $_SESSION[USER_PIC] ?>" class="propic"/></li>
@@ -253,29 +331,120 @@ $allEvents = $event->getAllEvents();
         </div>
     </div>
 </nav>
-
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3"><!--left col-->
-            <div class="hold">
+        <div class="col-sm-4 picsec">
+            <div class="row">
+                <div class="col-sm-12 pic">
+                    <img src="<?= $ngo['image_url'] ?>">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 name">
+                    <p><?= $ngo['name'] ?></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 addEvent">
+                    <a href="./newEvent.php" class="btn btn-danger btn-block btn-lg">+ Add New Event</a>
+                </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <?php
-            foreach ($allEvents as $eachEvent) {
-                echo
-                    '<div class="panel panel-default">' .
-                    '<div class="panel-heading"><a href="./event.php?id=' . $eachEvent['id'] . '">' .
-                    $eachEvent['name'] .
-                    '<i class="fa fa-link fa-1x"></i></a></div>' .
-                    '<div class="panel-body">' . $eachEvent['description'] . '</div>' .
-                    '</div>';
-            }
-            ?>
+        <div class="col-sm-4 prosec">
+            <div class="row push">
+                <div class="col-sm-4 list ">
+                    Short description:
+                </div>
+                <div class="col-sm-8 desc">
+                    <?= $ngo['description'] ?>
+                </div>
+            </div>
+            <div class="row push">
+                <div class="col-sm-4 list ">
+                    Number of successful events:
+                </div>
+                <div class="col-sm-8 desc">
+                    <?= $ngo['count'] ?>
+                </div>
+            </div>
+            <div class="row push">
+                <div class="col-sm-4 list ">
+                    Total pledges till date:
+                </div>
+                <div class="col-sm-8 desc">
+                    <?= $ngo['max'] ?>
+                </div>
+            </div>
+            <div class="row push">
+                <div class="col-sm-4 list ">
+                    Head of Organization:
+                </div>
+                <div class="col-sm-8 desc">
+                    <?= $ngo['head_of_ngo'] ?>
+                </div>
+            </div>
+            <div class="row push">
+                <div class="col-sm-4 list ">
+                    Most successful pledges:
+                </div>
+                <div class="col-sm-8 desc">
+                    <?= $ngo['max'] ?>
+                </div>
+            </div>
+            <div class="row push">
+                <div class="col-sm-4 list ">
+                    Contact Info:
+                </div>
+                <div class="col-sm-8 desc">
+                    <i class="glyphicon glyphicon-envelope"></i> <?= $ngo['email'] ?><br>
+                    <i class="glyphicon glyphicon-phone"></i> <?= $ngo['mobile'] ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 eventsec">
+            <div class="row">
+                <div class="list-group">
+                    <li class="list-group-item">Upcoming events</li>
+                    <div id="list1">
+                        <?php
+                        if (count($ngo['upcoming']) === 0)
+                            echo 'No upcoming events.';
+                        foreach ($ngo['upcoming'] as $eachEvent) {
+                            echo
+                                '<a href="./event.php?id=' . $eachEvent['id'] . '" class="list-group-item ">' .
+                                '<span class="glyphicon glyphicon-calendar "></span> ' .
+                                $eachEvent['name'] . '</a>';
+                        }
+                        ?>
+                    </div>
+                    <li class="list-group-item">Past Events</li>
+                    <div id="list2">
+                        <?php
+                        if (count($ngo['past']) === 0)
+                            echo 'No past events.';
+                        foreach ($ngo['past'] as $eachEvent) {
+                            echo
+                                '<a href="./event.php?id=' . $eachEvent['id'] . '" class="list-group-item ">' .
+                                '<span class="glyphicon glyphicon-calendar "></span> ' .
+                                $eachEvent['name'] . '</a>';
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script>
+    $('a.list-group-item').hover(function () {
+        $(this).find('.glyphicon-calendar').css(
+            {'color': 'white'});
+    });
+    $('a.list-group-item').mouseleave(function () {
+        $(this).find('.glyphicon-calendar').css(
+            {'color': '#f23c2b'});
+    });
 
+</script>
 </body>
 </html>
-

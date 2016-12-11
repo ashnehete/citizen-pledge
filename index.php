@@ -1,3 +1,38 @@
+<?php
+include_once 'inc/setup.php';
+if (isset($_SESSION[LOGGED_IN]) && $_SESSION[LOGGED_IN] === true)
+    goToNextPage();
+include_once 'inc/User.php';
+$user = new User($db);
+
+$state = 0;
+
+if (isset($_POST['submit-login'])) {
+    $state = 1;
+    $login = $user->login($_POST['email'], $_POST['password']);
+    if ($login === true) goToNextPage();
+} else if (isset($_POST['submit-rgstr'])) {
+    $state = 2;
+    $rgstr = $user->createAccount($_POST['email'], $_POST['username'], $_POST['password'],
+        $_POST['confirm-password'], $_POST['type']);
+}
+
+function goToNextPage()
+{
+    if ($_SESSION[USER_NAME] == NULL) {
+        if ($_SESSION[USER_TYPE_ID] === NGO)
+            header('Location: ./ngodetails.php');
+        else
+            header('Location: ./userdetails.php');
+    } else {
+        if ($_SESSION[USER_TYPE_ID] === NGO)
+            header('Location: ./ngo.php');
+        else
+            header('Location: ./citizen.php');
+    }
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +51,8 @@
             height: 100vh;
             background-color: white;
             color: #f23c2b;
-            padding: none;
-            margin: none;
+            padding: 0;
+            margin: 0;
         }
 
         .form-control {
@@ -140,6 +175,10 @@
             height: 50px;
             font-size: 22px;
         }
+
+        .center {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -152,22 +191,23 @@
     </h3>
     <div class="row pg1">
         <div class="col-sm-6">
-            <form class="lgn">
+            <form class="lgn" method="post" action="#">
 
                 <div class="form-group">
                         <label for="email">Email address:</label>
-                        <input type="email" class="form-control" id="email">
+                        <input type="email" name="email" class="form-control" id="email">
                      
                 </div>
                  
                 <div class="form-group">
                         <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" id="pwd">
+                        <input type="password" name="password" class="form-control" id="pwd">
                      
                 </div>
+
+                <p><?= ($state === 1) ? $login : ''; ?></p>
                  
                 <div class="form-group">
-                     
                     <div class="btn-group" data-toggle="buttons">
                         <label class="btn btn-danger rmrme">
                             <input type="checkbox" name="options" id="option1"> Remember Me
@@ -176,16 +216,19 @@
                 </div>
                  
                 <div class="btn-toolbar">
-                     
-                    <button type="submit" action="login.php" class="btn btn-default bttn submit rgstr"><b>Login</b>
+                    <button type="submit" name="submit-login" class="btn btn-default bttn submit rgstr">
+                        <b>Login</b>
                     </button>
                      
                     <button type="button" class="btn btn-default bttn register"><b>Click to register</b></button>
             </form>
         </div>
     </div>
-    <div class="col-sm-6">
-        <p>Description</p>
+    <div class="col-sm-6 center">
+        <div style="width: 50%;">
+            <span><strong>Helping people, changing lives.</strong></span><br>
+            Citizen Pledge helps you connect with other people to bring about the change you want to see
+        </div>
     </div>
 </div>
 <div class="container-fluid">
@@ -193,18 +236,20 @@
         <h3 id="rgstr">
             <b>Register:</b>
         </h3>
-        <form class="rgstr">
+        <form class="rgstr" action="#" method="post">
             <div class="col-sm-4">
+
+                <p><?= ($state === 2) ? $rgstr : ''; ?></p>
                  
                 <div class="form-group user">
                         <label for="email">Email address:</label>
-                        <input type="email" class="form-control" id="email">
+                        <input type="email" name="email" class="form-control" id="email">
                      
                 </div>
                  
                 <div class="form-group pass">
                         <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" id="pwd">
+                        <input type="password" name="password" class="form-control" id="pwd">
                      
                 </div>
             </div>
@@ -214,10 +259,10 @@
                      
                     <div class="btn-group btn-group-danger" data-toggle="buttons">
                         <label class="btn btn-danger btn-lg active">
-                            <input type="radio" name="options" id="option1" checked> NGO
+                            <input type="radio" name="type" value="1" id="option1" checked> NGO
                         </label>
                         <label class="btn btn-danger btn-lg">
-                            <input type="radio" name="options" id="option2"> Citizen
+                            <input type="radio" name="type" value="2" id="option2"> Citizen
                         </label>
                     </div>
                 </div>
@@ -225,18 +270,19 @@
             <div class="col-sm-4">
                 <div class="form-group users">
                     <label for="email">Username:</label>
-                        <input type="text" class="form-control" id="username">
+                        <input type="text" class="form-control" name="username" id="username">
                        
                 </div>
                    
                 <div class="form-group pas">
                         <label for="pwd">Confirm Password:</label>
-                        <input type="password" class="form-control" id="cpwd">
+                        <input type="password" class="form-control" name="confirm-password" id="cpwd">
                        
                 </div>
             </div>
+
             <div class="btn-toolbar pg2 rgstrs">
-                <button type="submit" action="register.php" class="btn btn-default bttn submit"><b>Register</b></button>
+                <button type="submit" name="submit-rgstr" class="btn btn-default bttn submit"><b>Register</b></button>
                 <button type="button" class="btn btn-default bttn login"><b>Click to login</b></button>
             </div>
         </form>
@@ -252,6 +298,8 @@
         $(".pg1").toggle(1000);
         $(".pg2").toggle(1000);
     });
+
+    <?= ($state == 2) ? '$(".pg1").toggle(1000);$(".pg2").toggle(1000);' : ''; ?>
 </script>
 </body>
 </html>

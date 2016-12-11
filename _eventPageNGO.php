@@ -152,14 +152,14 @@
 .push{
 	margin-left:-30px;
 }
-.btn-block{
-	width:180px;
+.botn.btn-block{
+	width:140px;
 	height:60px;
 	font-size:25px;
 	border:none;
 	font-weight:bold;
 	background-color:#f23c2b;
-	margin-left:75px;
+	margin-left:95px;
 	margin-top:110px;
 }
 #to{
@@ -198,11 +198,43 @@
 	top:0;
 	right:0;
 }
-.dropdown-menu{
-  height: auto;
-  max-height: 180px;
-  overflow-x: hidden;
-  font-size:1em;
+.glyphicon-pencil,.glyphicon-remove{
+	position:absolute;
+	top:0;
+	left:0;
+	font-size:18px;
+	margin-left:8px;
+	padding:14px;
+	background-color:#f23c2b;
+	color:white;
+}
+.glyphicon-remove{
+	display:none;
+}
+.glyphicon-remove:hover{
+	cursor:pointer;
+}
+.glyphicon-pencil:hover{
+	cursor:pointer;
+}
+.form-group{
+	display:none;
+}
+textarea{
+	resize:none;
+}
+.btn-block.bttn{
+	position:absolute;
+	width:50px;
+	height:46px;
+	font-size:21px;
+	border:none;
+	font-weight:bold;
+	background-color:#f23c2b;
+	margin:0;
+	padding:0;
+	margin-left:45px;
+	display:none;
 }
 </style>
 </head>
@@ -237,19 +269,6 @@
       <ul class="nav navbar-nav navbar-right">
         <li><img src="https://www.drupal.org/files/profile_default.png" class="propic"></img></li>
         <li><a href="#" class="uname"> Username</a></li>
-        <li class="dropdown"><a href="#" class=""btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-bell notification-icon"></span> Notifications<span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <ul class="text-right" id="notif"><a href="#">Dismiss all</a></ul>
-            <li><a href="#">Amy messaged you!</a></li>
-            <li><a href="#">Sean liked your post!</a></li>
-            <li><a href="#">DigitalOcean posted a new event!</a></li>
-            <li><a href="#">Someone mentioned you!</a></li>
-            <li><a href="#">Amy liked your post!</a></li>
-            <li><a href="#">Aashish tagged you!</a></li>
-            <li><a href="#">Someone mentioned you!</a></li>
-            <li><a href="#">Gaurav messaged you!</a></li>
-          </ul>
-        </li>
         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
       </ul>
     </div>
@@ -259,50 +278,82 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-sm-12 event">
-			<div class="row push">
-				<div class="col-sm-8 eventPic">
-					<img src="charity.jpg" id="epic"></img>
+			<form>
+				<div class="row push">
+					<div class="col-sm-8 eventPic">
+						<img src="img/charity.jpg" id="epic"></img>
+					</div>
+					<div class="col-sm-4 pledge">
+						<span class="glyphicon glyphicon-remove"></span>
+						<span class="glyphicon glyphicon-pencil"></span>
+						<button type = "submit" class = "btn btn-danger btn-block btn-lg bttn"><span class="glyphicon glyphicon-ok"></span></button>
+						<span class="eventCount">5000</span>
+						<button type = "submit" class = "btn btn-danger btn-block btn-lg botn">Delete</button>
+						<p id="to">Event Name </p>
+					</div>
 				</div>
-				<div class="col-sm-4 pledge">
-					<span class="eventCount">5000</span>
-					<button type = "submit" class = "btn btn-danger btn-block btn-lg">+ Pledge</button>
-					<p id="to">to </p><p id="ename">Event Name</p>
+				<div class="row push">
+					<div class="col-sm-4 list">
+						NGO Name:
+					</div>
+					<div class="col-sm-8 desc">
+						<a href="#">String with link to NGO</a>
+					</div>
 				</div>
-			</div>
-			<div class="row push">
-				<div class="col-sm-4 list">
-					NGO Name:
+				<div class="row push">
+					<div class="col-sm-4 list ">
+						Event Description:  
+					</div>
+					<div class="col-sm-8 desc">
+						<div class="form-group">
+							<textarea class="form-control" rows="4" id="desc"></textarea>
+						</div>
+						<span class="disapp">Short parapraph(Max 5 lines)</span>
+					</div>
 				</div>
-				<div class="col-sm-8 desc">
-					<a href="#">String with link to NGO</a>
+				<div class="row push">
+					<div class="col-sm-4 list ">
+						Event Timing:
+					</div>
+					<div class="col-sm-8 desc">
+						<div class="form-group">
+							<input type="text" class="form-control" id="time">
+						</div>
+						<span class="disapp">Start time to end time</span>
+					</div>
 				</div>
-			</div>
-			<div class="row push">
-				<div class="col-sm-4 list ">
-					Event Description:  
+				<div class="row push">
+					<div class="col-sm-4 list ">
+						Event Location:
+					</div>
+					<div class="col-sm-8 desc">
+						<div class="form-group">
+							<input type="text" class="form-control" id="time">
+						</div>
+						<span class="disapp">Location</span>
+					</div>
 				</div>
-				<div class="col-sm-8 desc">
-					Short parapraph(Max 5 lines)<br><br><br><br>
-				</div>
-			</div>
-			<div class="row push">
-				<div class="col-sm-4 list ">
-					Event Timing:
-				</div>
-				<div class="col-sm-8 desc">
-					Start time to end time
-				</div>
-			</div>
-			<div class="row push">
-				<div class="col-sm-4 list ">
-					Event Location:
-				</div>
-				<div class="col-sm-8 desc">
-					Location
-				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>
+<script>
+	$(document).ready(function(){
+		$('.glyphicon-pencil').click(function(){
+			$('.disapp').fadeOut(500);
+			$('.form-group').delay(500).fadeIn(500);
+			$(this).fadeOut(500);
+			$('.glyphicon-remove').fadeIn(500);
+			$('.bttn.btn-block').fadeIn(500);
+		});
+		$('.glyphicon-remove').click(function(){
+			$('.form-group').fadeOut(500);
+			$('.disapp').delay(500).fadeIn(500);
+			$(this).fadeOut(500);
+			$('.bttn.btn-block').fadeOut(500);
+			$('.glyphicon-pencil').fadeIn(500);
+		});
+	});
+</script>
 </body>
 </html>

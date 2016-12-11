@@ -1,14 +1,20 @@
 <?php
 include_once 'inc/setup.php';
-if (!isset($_SESSION[LOGGED_IN]) || $_SESSION[LOGGED_IN] === false)
-    header('Location: ./');
 include_once 'inc/User.php';
-$user = new User($db);
+include_once 'inc/Event.php';
 
 if (isset($_POST['submit'])) {
-    $imageUrl = $user->uploadProfilePicture($_FILES['browseImage']);
-    $user->insertDetails($_POST['first-name'] . ' ' . $_POST['last-name'], $_POST['desc'], $_POST['mobile'], $imageUrl);
-    header('Location: ./citizen.php');
+    $event = new Event();
+
+    // Image file upload
+    $random_int = random_int(10000, 99999);
+    $imageFileType = pathinfo($_FILES['browseImage']['name'], PATHINFO_EXTENSION);
+    $target_file = './uploads/events/' . $random_int . '.' . $imageFileType;
+    move_uploaded_file($_FILES['browseImage']['tmp_name'], $target_file);
+
+    $event->createEvent($_SESSION[USER_ID], $_POST['name'], $_POST['desc'], $_POST['location'],
+        $_POST['start-time'], $_POST['end-time'], $target_file);
+    header('Location: ./ngo.php');
 }
 ?>
 <!DOCTYPE html>
@@ -159,45 +165,38 @@ if (isset($_POST['submit'])) {
             margin-right: 20px !important;
         }
 
-        .profile {
-            margin: 20px;
-            width: 45%;
-        }
-
-        #dtls {
-            color: #f23c2b;
-            font-weight: bold;
-            margin-left: 120px;
-            margin-top: 40px;
-        }
-
-        label {
-            font-size: 20px;
-            font-weight: bold;
-            color: #f23c2b;
-
-        }
-
         .propic {
             border-radius: 100%;
-            padding: 0;
+            padding: none;
             height: 2em;
             margin-top: 0.75em;
         }
 
-        .col-sm-6 {
-            margin-left: 120px;
-            width: 400px;
-        }
-
-        .form-control:focus {
-            border-color: #FF0000;
-            font-weight: bold;
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.0), 0 0 8px rgba(255, 0, 0, 0.0);
-        }
-
         textarea {
             resize: none;
+        }
+
+        .two {
+            margin-top: 55px;
+        }
+
+        .input-group-addon {
+            position: relative;
+            background-color: #f23c2b;
+            border: none;
+            border-radius: 0;
+            color: white;
+            margin: 0;
+            right: 62px;
+        }
+
+        .end {
+            position: relative;
+            right: 62px;
+        }
+
+        .time .form-control {
+            width: 200px !important;
         }
 
         #avatar {
@@ -210,34 +209,49 @@ if (isset($_POST['submit'])) {
 
         #browse {
             display: none;
+            z-index: 999;
+        }
+
+        .container {
+            color: #f23c2b;
+        }
+
+        .form-control:focus {
+            border-color: #FF0000;
+            font-weight: bold;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.0), 0 0 8px rgba(255, 0, 0, 0.0);
+        }
+
+        .subeve {
+            margin-left: 375px;
+            margin-top: 30px;
+            color: #f23c2b;
+            width: 200px;
+            height: 50px;
+            font-size: 20px;
+        }
+
+        .subeve:hover, .subeve:focus, .subeve:active {
+            color: white;
+            outline: none;
+            border: none;
+            background-color: #f23c2b;
+        }
+
+        .row {
+            margin-top: 40px;
         }
 
         #click {
             position: absolute;
-            left: 60px;
-            top: 140px;
+            left: 120px;
+            top: 190px;
             z-index: -1;
-            font-size: 22px;
-            color: #f23c2b;
-        }
-
-        #im {
             font-size: 20px;
-            color: #f23c2b;
         }
 
-        .sbt {
-            margin-left: 475px;
-            padding: 0;
-            width: 152px;
-        }
-
-        .btn-block {
-            width: 152px;
-            height: 60px;
-            font-size: 22px;
-            border: none;
-            background-color: #f23c2b;
+        .glyphicon-log-in, .glyphicon-bell {
+            color: #ffffff;
         }
 
         .dropdown-menu {
@@ -258,12 +272,12 @@ if (isset($_POST['submit'])) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="./">Citizen Pledge</a>
+            <a class="navbar-brand" href="#">Citizen Pledge</a>
             <form class="navbar-form navbar-left">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search">
                     <div class="input-group-btn">
-                        <button class="btn btn-default">
+                        <button class="btn btn-default" type="submit">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </div>
@@ -272,59 +286,73 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="./">Home</a></li>
+                <li class="active"><a href="#">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="./logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><img src="<?= $_SESSION[USER_PIC] ?>" class="propic"/></li>
+                <li><a href="#" class="uname"><?= $_SESSION[USER_NAME] ?></a></li>
+                <li class="dropdown"><a href="#" class="" btn btn-primary dropdown-toggle" type="button"
+                    data-toggle="dropdown"><span class="glyphicon glyphicon-bell notification-icon"></span>
+                    Notifications<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <ul class="text-right" id="notif"><a href="#">Dismiss all</a></ul>
+                        <li><a href="#">Amy messaged you!</a></li>
+                        <li><a href="#">Sean liked your post!</a></li>
+                        <li><a href="#">DigitalOcean posted a new event!</a></li>
+                        <li><a href="#">Someone mentioned you!</a></li>
+                        <li><a href="#">Amy liked your post!</a></li>
+                        <li><a href="#">Aashish tagged you!</a></li>
+                        <li><a href="#">Someone mentioned you!</a></li>
+                        <li><a href="#">Gaurav messaged you!</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
         </div>
     </div>
 </nav>
-<div class="container-fluid">
-    <h2 id="dtls">
-        User Details:
-    </h2>
-    <form id="ngopro" action="#" method="post" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-sm-6 profile">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label for="nme">First Name: </label>
-                        <div class="form-group">
-                            <input type="text" name="first-name" class="form-control" id="nme">
-                        </div>
-                        <label for="headngo">Last Name: </label>
-                        <div class="form-group">
-                            <input type="text" name="last-name" class="form-control" id="headngo">
-                        </div>
-                        <label for="desc">About yourself: </label>
-                        <div class="form-group">
-                            <textarea class="form-control" rows=6 name="desc" id="desc" placeholder="200 characters max"></textarea>
-                        </div>
+
+<div class="container">
+    <div class="row">
+        <form class="evnt" action="#" method="post" enctype="multipart/form-data">
+            <h3 id="login">
+                <b>Add an event:</b>
+            </h3>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="name">Event Name: </label>
+                    <input type="text" name="name" class="form-control" id="email">
+                </div>
+                <div class="form-group">
+                    <label for="desc">Event Description: </label>
+                        <textarea class="form-control" name="desc" rows="4" id="desc"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="time">Timing: </label>
+                    <div class="input-group time">
+                        <input type="datetime-local" name="start-time" class="form-control" placeholder="Start"/>
+                        <span class="input-group-addon">-</span>
+                        <input type="datetime-local" name="end-time" class="form-control end" placeholder="End"/>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 profile">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label for="location">Location: </label>
+                    <input type="text" name="location" class="form-control" id="email">
+                </div>
                 <div class="form-group">
                     <p class="img" id="im"><b>Image: </b></p>
                     <label for="browse">
                         <label id="click">Click to upload</label>
-                        <img id="avatar" src='img/blank.gif' style="height: 250px; width:250px;">
+                        <img id="avatar" src='img/blank.gif' style="height: 200px; width:350px;">
                     </label>
                     <input id="browse" type="file" name="browseImage" onchange="previewFile()">
                 </div>
-                <label for="mobileNo">Mobile No.: </label>
-                <div class="form-group">
-                    <input type="tel" name="mobile" class="form-control" id="mobileNo">
-                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12 sbt">
-                <button type="submit" name="submit" class="btn btn-danger btn-block btn-lg">Submit</button>
-            </div>
-        </div>
-    </form>
+            <button type="submit" name="submit" class="btn btn-default bttn submit subeve"><b>Add Event</b></button>
+        </form>
+    </div>
 </div>
 <script>
     function previewFile() {
@@ -333,7 +361,7 @@ if (isset($_POST['submit'])) {
         var reader = new FileReader();
         reader.onloadend = function () {
             preview.src = reader.result;
-        }
+        };
 
         if (file.type.match('image.*')) {
             reader.readAsDataURL(file); //reads the data as a URL

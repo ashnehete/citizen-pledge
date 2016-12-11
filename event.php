@@ -1,7 +1,20 @@
+<?php
+if (!isset($_GET['id']))
+    header('Location: ./');
+include_once 'inc/setup.php';
+include_once 'inc/Event.php';
+
+$event = new Event($db);
+$event_details = $event->getEventById($_GET['id']);
+
+if (isset($_POST['submit'])) {
+    $pledge_msg = $event->pledgeToEvent($_SESSION[USER_ID], $_GET['id']);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Add an Event</title>
+    <title><?= $event_details['name'] ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -10,7 +23,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
         body {
-            font-family: Montserrat;
+            font-family: 'Montserrat', sans-serif;
             background: url("img/BG.jpg");
             background-size: cover;
             height: 100vh;
@@ -136,6 +149,13 @@
             color: #ffffff;
         }
 
+        .propic {
+            border-radius: 100%;
+            padding: 0;
+            height: 2em;
+            margin-top: 0.75em;
+        }
+
         .form-control {
             border-radius: 0;
             width: 280px !important;
@@ -146,104 +166,100 @@
             margin-right: 20px !important;
         }
 
-        .propic {
-            border-radius: 100%;
-            padding: none;
-            height: 2em;
-            margin-top: 0.75em;
+        .event {
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 3%;
+            background-color: white;
         }
 
-        textarea {
-            resize: none;
+        .fixed-nav-bar {
+              position: fixed;
+              top: 0;
+              left: 0;
+              z-index: 9999;
+              width: 100%;
+              margin-bottom: 30px;
         }
 
-        .two {
-            margin-top: 55px;
-        }
-
-        .input-group-addon {
-            position: relative;
-            background-color: #f23c2b;
-            border: none;
-            border-radius: 0;
-            color: white;
+        #epic {
+            height: 60%;
+            width: 625px;
+            max-width: 700px;
             margin: 0;
-            right: 162px;
+            padding: 0;
         }
 
-        .end {
-            position: relative;
-            right: 162px;
+        .push {
+            margin-left: -30px;
         }
 
-        .time .form-control {
-            width: 100px !important;
-        }
-
-        #avatar {
-            background-color: rgba(0, 0, 0, 0.3);
-            margin: 0 0 0 0;
-            z-index: 3;
-            border-color: transparent;
-            cursor: pointer;
-        }
-
-        #browse {
-            display: none;
-            z-index: 999;
-        }
-
-        .container {
-            color: #f23c2b;
-        }
-
-        .form-control:focus {
-            border-color: #FF0000;
-            font-weight: bold;
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.0), 0 0 8px rgba(255, 0, 0, 0.0);
-        }
-
-        .subeve {
-            margin-left: 375px;
-            margin-top: 30px;
-            color: #f23c2b;
-            width: 200px;
-            height: 50px;
-            font-size: 20px;
-        }
-
-        .subeve:hover, .subeve:focus, .subeve:active {
-            color: white;
-            outline: none;
+        .btn-block {
+            width: 180px;
+            height: 60px;
+            font-size: 25px;
             border: none;
+            font-weight: bold;
             background-color: #f23c2b;
+            margin-left: 75px;
+            margin-top: 110px;
         }
 
-        .row {
-            margin-top: 40px;
+        #to {
+            font-weight: bold;
+            font-size: 24px;
+            text-align: center;
+            margin-top: 10px;
         }
 
-        #click {
-            position: absolute;
-            left: 120px;
-            top: 190px;
-            z-index: -1;
+        #ename {
+            color: #f23c2b;
+            font-weight: bold;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        .list {
+            color: #f23c2b;
+            font-weight: bold;
+            margin: 20px;
             font-size: 20px;
+            padding-left: 160px;
         }
-        .glyphicon-log-in, .glyphicon-bell{
-            color:#ffffff;
+
+        .desc {
+            width: 50%;
+            font-size: 20px;
+            margin-top: 20px;
         }
-        .dropdown-menu{
+
+        .eventCount {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            background-color: #f23c2b;
+            color: white;
+            padding: 10px;
+            padding-top: 2px;
+            text-align: center;
+            top: 0;
+            right: 0;
+        }
+
+        .dropdown-menu {
             height: auto;
             max-height: 180px;
             overflow-x: hidden;
-            font-size:1em;
+            font-size: 1em;
+        }
+
+        .center {
+            text-align: center;
         }
     </style>
 </head>
 <body>
-
-<nav class="navbar navbar-custom">
+<nav class="navbar navbar-custom fixed-nav-bar">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -251,7 +267,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Citizen Pledge</a>
+            <a class="navbar-brand" href="./">Citizen Pledge</a>
             <form class="navbar-form navbar-left">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search">
@@ -265,93 +281,88 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Page 1</a></li>
-                <li><a href="#">Page 2</a></li>
-                <li><a href="#">Page 3</a></li>
+                <li class="active"><a href="./">Home</a></li>
+                <?php
+                if ($_SESSION[USER_ID] === CITIZEN)
+                    echo '<li class="active"><a href="./feed.php">Feed</a></li>';
+                ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><img src="https://www.drupal.org/files/profile_default.png" class="propic"></img></li>
-                <li><a href="#" class="uname"> Username</a></li>
-                <li class="dropdown"><a href="#" class=""btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-bell notification-icon"></span> Notifications<span class="caret"></span></a>
+                <li><img src="<?= $_SESSION[USER_PIC] ?>" class="propic"/></li>
+                <li><a href="./" class="uname"><?= $_SESSION[USER_NAME] ?></a></li>
+                <li class="dropdown"><a href="#" type="button"
+                                        data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-bell notification-icon"></span>
+                        Notifications<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <ul class="text-right" id="notif"><a href="#">Dismiss all</a></ul>
-                            <li><a href="#">Amy messaged you!</a></li>
-                            <li><a href="#">Sean liked your post!</a></li>
-                            <li><a href="#">DigitalOcean posted a new event!</a></li>
-                            <li><a href="#">Someone mentioned you!</a></li>
-                            <li><a href="#">Amy liked your post!</a></li>
-                            <li><a href="#">Aashish tagged you!</a></li>
-                            <li><a href="#">Someone mentioned you!</a></li>
-                            <li><a href="#">Gaurav messaged you!</a></li>
+                        <li><a href="#">Amy messaged you!</a></li>
+                        <li><a href="#">Sean liked your post!</a></li>
+                        <li><a href="#">DigitalOcean posted a new event!</a></li>
+                        <li><a href="#">Someone mentioned you!</a></li>
+                        <li><a href="#">Amy liked your post!</a></li>
+                        <li><a href="#">Aashish tagged you!</a></li>
+                        <li><a href="#">Someone mentioned you!</a></li>
+                        <li><a href="#">Gaurav messaged you!</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><a href="./logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <form class="evnt">
-            <h3 id="login">
-                <b>Add an event:</b>
-            </h3>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="email">Event Name: </label>
-                    <input type="email" class="form-control" id="email">
+        <div class="col-sm-12 event">
+            <div class="row push">
+                <div class="col-sm-8 eventPic center">
+                    <img src="<?= $event_details['image_url'] ?>" style="width: auto; height: 200px"/>
                 </div>
-                <div class="form-group">
-                    <label for="desc">Event Description: </label>
-                        <textarea class="form-control" rows="4" id="desc"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="time">Timing: </label>
-                    <div class="input-group time">
-                        <input type="datetime-local" class="form-control" placeholder="Start"/>
-                        <span class="input-group-addon">-</span>
-                        <input type="datetime-local" class="form-control end" placeholder="End"/>
-                    </div>
+                <div class="col-sm-4 pledge">
+                    <span class="eventCount"><?= $event_details['pledges'] ?></span>
+                    <form action="#" method="post">
+                        <button type="submit" name="submit" class="btn btn-danger btn-block btn-lg">+ Pledge</button>
+                    </form>
+                    <p id="to">to</p>
+                    <p id="ename"><?= $event_details['name'] ?></p>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="email">Location: </label>
-                    <input type="email" class="form-control" id="email">
+            <h4 class="center"><?= (isset($pledge_msg) ? $pledge_msg : ''); ?></h4>
+            <div class="row push">
+                <div class="col-sm-4 list">
+                    NGO Name:
                 </div>
-                <div class="form-group">
-                    <p class="img" id="im"><b>Image: </b></p>
-                    <label for="browse">
-                        <label id="click">Click to upload</label>
-                        <img id="avatar" src='blank.gif' style="height: 200px; width:350px;">
-                    </label>
-                    <input id="browse" type="file" name="browseImage" onchange="previewFile()">
+                <div class="col-sm-8 desc">
+                    <a href="./ngo.php?id=<?= $event_details['ngo_id'] ?>"><?= $event_details['ngo'] ?></a>
                 </div>
             </div>
-        </form>
-        <button type="submit" action="login.php" class="btn btn-default bttn submit subeve"><b>Add Event</b></button>
+            <div class="row push">
+                <div class="col-sm-4 list ">
+                    Event Description:
+                </div>
+                <div class="col-sm-8 desc">
+                    <?= $event_details['description'] ?>
+                </div>
+            </div>
+            <div class="row push">
+                <div class="col-sm-4 list ">
+                    Event Timing:
+                </div>
+                <div class="col-sm-8 desc">
+                    <?= $event_details['start_time'] . ' - ' . $event_details['end_time'] ?>
+                </div>
+            </div>
+            <div class="row push">
+                <div class="col-sm-4 list ">
+                    Event Location:
+                </div>
+                <div class="col-sm-8 desc">
+                    <?= $event_details['location'] ?>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<script>
-    function previewFile() {
-        var preview = document.querySelector('#avatar'); //selects the query with id avatar
-        var file = document.querySelector('input[type=file]').files[0]; //sames as here
-        var reader = new FileReader();
-        reader.onloadend = function () {
-            preview.src = reader.result;
-        };
-
-        if (file.type.match('image.*')) {
-            reader.readAsDataURL(file); //reads the data as a URL
-        } else if (!file.type.match('image.*')) {
-            window.alert("Not an image file. Upload an appropriate file.");
-        } else {
-            preview.src = "";
-        }
-    }
-</script>
 </body>
 </html>
-

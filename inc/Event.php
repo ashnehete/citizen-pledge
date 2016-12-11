@@ -20,14 +20,18 @@ class Event
         }
     }
 
-    public function createEvent($ngo_id, $location, $start_time, $end_time)
+    public function createEvent($ngo_id, $name, $desc, $location, $start_time, $end_time, $image_url)
     {
-        $sql = 'INSERT INTO events (ngo_id, location, start_time, end_time) VALUES (:ngo_id, :location, :start_time, :end_time)';
+        $sql = 'INSERT INTO events (ngo_id, name, description, location, start_time, end_time, image_url)' .
+            ' VALUES (:ngo_id, :name, :desc, :location, :start_time, :end_time, :image_url)';
         if ($stmt = $this->_db->prepare($sql)) {
             $stmt->bindParam('ngo_id', $ngo_id, PDO::PARAM_INT);
+            $stmt->bindParam('name', $name, PDO::PARAM_STR);
+            $stmt->bindParam('desc', $desc, PDO::PARAM_STR);
             $stmt->bindParam('location', $location, PDO::PARAM_STR);
             $stmt->bindParam('start_time', $start_time, PDO::PARAM_STR);
             $stmt->bindParam('end_time', $end_time, PDO::PARAM_STR);
+            $stmt->bindParam('image_url', $image_url, PDO::PARAM_STR);
             $stmt->execute();
         }
         return 'Event inserted.';
@@ -51,8 +55,7 @@ class Event
     public function getAllEvents($page = 1, $limit = 20)
     {
         $offset = $limit * ($page - 1);
-        $sql = 'SELECT events.*, users.name, users.username FROM events JOIN users' .
-            ' ON events.ngo_id = users.id LIMIT :offset, :limit';
+        $sql = 'SELECT * FROM events LIMIT :offset, :limit';
         if ($stmt = $this->_db->prepare($sql)) {
             $stmt->bindParam('offset', $offset, PDO::PARAM_INT);
             $stmt->bindParam('limit', $limit, PDO::PARAM_INT);
@@ -60,11 +63,12 @@ class Event
             $rows = $stmt->fetchAll();
             return $rows;
         }
+        return 'Error';
     }
 
     public function getEventById($id)
     {
-        $sql = 'SELECT events.*, users.name, users.username FROM events JOIN users' .
+        $sql = 'SELECT events.*, users.name as ngo FROM events INNER JOIN users' .
             ' ON events.ngo_id = users.id WHERE events.id = :id';
         if ($stmt = $this->_db->prepare($sql)) {
             $stmt->bindParam('id', $id, PDO::PARAM_INT);
@@ -79,22 +83,41 @@ class Event
 
     }
 
-    public function getEventsByNgo($user_id, $limit = NULL)
+    public function getEventsByNgo($ngo_id, $limit = NULL)
     {
-        $sql = 'SELECT * WHERE ngo_id = :user_id';
+        $sql = 'SELECT * FROM events WHERE ngo_id = :ngo_id';
 
         if (!is_null($limit))
             $sql .= ' LIMIT :limit';
 
         if ($stmt = $this->_db->prepare($sql)) {
-            $stmt->bindParam('user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindParam('ngo_id', $ngo_id, PDO::PARAM_INT);
 
             if (!is_null($limit))
                 $stmt->bindParam('limit', $limit, PDO::PARAM_INT);
 
             $stmt->execute();
-            $row = $stmt->fetch();
-            return $row;
+            return $stmt->fetchAll();
+        }
+        return 'No events';
+    }
+
+    public function getEventsByCitizen($citizen_id, $limit = NULL)
+    {
+        $sql = 'SELECT events.* FROM citizen_event JOIN events ON citizen_event.event_id = events.id' .
+            ' WHERE citizen_event.citizen_id = :citizen_id';
+
+        if (!is_null($limit))
+            $sql .= ' LIMIT :limit';
+
+        if ($stmt = $this->_db->prepare($sql)) {
+            $stmt->bindParam('citizen_id', $citizen_id, PDO::PARAM_INT);
+
+            if (!is_null($limit))
+                $stmt->bindParam('limit', $limit, PDO::PARAM_INT);
+
+            $stmt->execute();
+            return $stmt->fetchAll();
         }
     }
 

@@ -7,14 +7,15 @@ $user = new User($db);
 
 if (isset($_POST['submit'])) {
     $imageUrl = $user->uploadProfilePicture($_FILES['browseImage']);
-    $user->insertDetails($_POST['first-name'] . ' ' . $_POST['last-name'], $_POST['desc'], $_POST['mobile'], $imageUrl);
-    header('Location: ./citizen.php');
+    $user->insertDetails($_POST['name'], $_POST['desc'], $_POST['mobile'], $imageUrl, $_POST['head']);
+    header('Location: ./ngo.php');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Add an Event</title>
+    <title>Citizen Pledge</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -258,7 +259,7 @@ if (isset($_POST['submit'])) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="./">Citizen Pledge</a>
+            <a class="navbar-brand" href="#">Citizen Pledge</a>
             <form class="navbar-form navbar-left">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search">
@@ -272,34 +273,34 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="./">Home</a></li>
+                <li class="active"><a href="#">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="./logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="container-fluid">
     <h2 id="dtls">
-        User Details:
+        NGO Details:
     </h2>
     <form id="ngopro" action="#" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-6 profile">
                 <div class="row">
                     <div class="col-sm-12">
-                        <label for="nme">First Name: </label>
+                        <label for="nme">Name of the NGO: </label>
                         <div class="form-group">
-                            <input type="text" name="first-name" class="form-control" id="nme">
+                            <input type="text" class="form-control" id="nme" name="name">
                         </div>
-                        <label for="headngo">Last Name: </label>
+                        <label for="headngo">Head of the NGO: </label>
                         <div class="form-group">
-                            <input type="text" name="last-name" class="form-control" id="headngo">
+                            <input type="text" class="form-control" id="headngo" name="head">
                         </div>
-                        <label for="desc">About yourself: </label>
+                        <label for="desc">Short description: </label>
                         <div class="form-group">
-                            <textarea class="form-control" rows=6 name="desc" id="desc" placeholder="200 characters max"></textarea>
+                            <textarea class="form-control" rows=6 id="desc" name="desc" placeholder="200 characters max"></textarea>
                         </div>
                     </div>
                 </div>
@@ -315,7 +316,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <label for="mobileNo">Mobile No.: </label>
                 <div class="form-group">
-                    <input type="tel" name="mobile" class="form-control" id="mobileNo">
+                    <input type="tel" class="form-control" name="mobile" id="mobileNo">
                 </div>
             </div>
         </div>
