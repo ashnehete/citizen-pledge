@@ -108,7 +108,7 @@ class User
 
     public function uploadProfilePicture($file)
     {
-        if ($file['error'] != 0)
+        if ($file == null || $file['error'] != UPLOAD_ERR_OK)
             return null;
         $imageFileType = pathinfo($file['name'], PATHINFO_EXTENSION);
         $target_file = './uploads/users/' . $_SESSION[USER_ID] . '.' . $imageFileType;
