@@ -225,7 +225,7 @@ function goToNextPage()
         </div>
     </div>
     <div class="col-sm-6 center">
-        <div style="width: 50%;">
+        <div style="width: 50%; font-size: 20px;">
             <span><strong>Helping people, changing lives.</strong></span><br>
             Citizen Pledge helps you connect with other people to bring about the change you want to see
         </div>
