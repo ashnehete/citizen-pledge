@@ -259,7 +259,7 @@ if (isset($_POST['submit'])) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Citizen Pledge</a>
+            <a class="navbar-brand" href="./">Citizen Pledge</a>
             <form class="navbar-form navbar-left">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search">
@@ -273,10 +273,10 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="./">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><a href="./"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
         </div>
     </div>
@@ -292,15 +292,15 @@ if (isset($_POST['submit'])) {
                     <div class="col-sm-12">
                         <label for="nme">Name of the NGO: </label>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="nme" name="name">
+                            <input type="text" class="form-control" id="nme" name="name" required>
                         </div>
                         <label for="headngo">Head of the NGO: </label>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="headngo" name="head">
+                            <input type="text" class="form-control" id="headngo" name="head" required>
                         </div>
                         <label for="desc">Short description: </label>
                         <div class="form-group">
-                            <textarea class="form-control" rows=6 id="desc" name="desc" placeholder="200 characters max"></textarea>
+                            <textarea class="form-control" rows=6 id="desc" name="desc" required placeholder="200 characters max"></textarea>
                         </div>
                     </div>
                 </div>
@@ -312,11 +312,11 @@ if (isset($_POST['submit'])) {
                         <label id="click">Click to upload</label>
                         <img id="avatar" src='img/blank.gif' style="height: 250px; width:250px;">
                     </label>
-                    <input id="browse" type="file" name="browseImage" onchange="previewFile()">
+                    <input id="browse" type="file" name="browseImage" onchange="previewFile()" required>
                 </div>
                 <label for="mobileNo">Mobile No.: </label>
                 <div class="form-group">
-                    <input type="tel" class="form-control" name="mobile" id="mobileNo">
+                    <input type="tel" class="form-control" name="mobile" id="mobileNo" required>
                 </div>
             </div>
         </div>

@@ -269,7 +269,7 @@ textarea{
       <ul class="nav navbar-nav navbar-right">
         <li><img src="https://www.drupal.org/files/profile_default.png" class="propic"></img></li>
         <li><a href="#" class="uname"> Username</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        <li><a href="./"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
       </ul>
     </div>
   </div>

@@ -195,13 +195,13 @@ function goToNextPage()
 
                 <div class="form-group">
                         <label for="email">Email address:</label>
-                        <input type="email" name="email" class="form-control" id="email">
+                        <input type="email" name="email" class="form-control" id="email" required>
                      
                 </div>
                  
                 <div class="form-group">
                         <label for="pwd">Password:</label>
-                        <input type="password" name="password" class="form-control" id="pwd">
+                        <input type="password" name="password" class="form-control" id="pwd" required>
                      
                 </div>
 
@@ -243,13 +243,13 @@ function goToNextPage()
                  
                 <div class="form-group user">
                         <label for="email">Email address:</label>
-                        <input type="email" name="email" class="form-control" id="email">
+                        <input type="email" name="email" class="form-control" id="email" required>
                      
                 </div>
                  
                 <div class="form-group pass">
                         <label for="pwd">Password:</label>
-                        <input type="password" name="password" class="form-control" id="pwd">
+                        <input type="password" name="password" class="form-control" id="pwd" required>
                      
                 </div>
             </div>
@@ -270,13 +270,13 @@ function goToNextPage()
             <div class="col-sm-4">
                 <div class="form-group users">
                     <label for="email">Username:</label>
-                        <input type="text" class="form-control" name="username" id="username">
+                        <input type="text" class="form-control" name="username" id="username" required>
                        
                 </div>
                    
                 <div class="form-group pas">
                         <label for="pwd">Confirm Password:</label>
-                        <input type="password" class="form-control" name="confirm-password" id="cpwd">
+                        <input type="password" class="form-control" name="confirm-password" id="cpwd" required>
                        
                 </div>
             </div>

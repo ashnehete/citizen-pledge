@@ -291,15 +291,15 @@ if (isset($_POST['submit'])) {
                     <div class="col-sm-12">
                         <label for="nme">First Name: </label>
                         <div class="form-group">
-                            <input type="text" name="first-name" class="form-control" id="nme">
+                            <input type="text" name="first-name" class="form-control" id="nme" required>
                         </div>
                         <label for="headngo">Last Name: </label>
                         <div class="form-group">
-                            <input type="text" name="last-name" class="form-control" id="headngo">
+                            <input type="text" name="last-name" class="form-control" id="headngo" required>
                         </div>
                         <label for="desc">About yourself: </label>
                         <div class="form-group">
-                            <textarea class="form-control" rows=6 name="desc" id="desc" placeholder="200 characters max"></textarea>
+                            <textarea class="form-control" rows=6 name="desc" id="desc" required placeholder="200 characters max"></textarea>
                         </div>
                     </div>
                 </div>
@@ -311,11 +311,11 @@ if (isset($_POST['submit'])) {
                         <label id="click">Click to upload</label>
                         <img id="avatar" src='img/blank.gif' style="height: 250px; width:250px;">
                     </label>
-                    <input id="browse" type="file" name="browseImage" onchange="previewFile()">
+                    <input id="browse" type="file" name="browseImage" onchange="previewFile()" required>
                 </div>
                 <label for="mobileNo">Mobile No.: </label>
                 <div class="form-group">
-                    <input type="tel" name="mobile" class="form-control" id="mobileNo">
+                    <input type="tel" name="mobile" class="form-control" id="mobileNo" required>
                 </div>
             </div>
         </div>

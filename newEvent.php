@@ -7,10 +7,12 @@ if (isset($_POST['submit'])) {
     $event = new Event();
 
     // Image file upload
-    $random_int = random_int(10000, 99999);
-    $imageFileType = pathinfo($_FILES['browseImage']['name'], PATHINFO_EXTENSION);
-    $target_file = './uploads/events/' . $random_int . '.' . $imageFileType;
-    move_uploaded_file($_FILES['browseImage']['tmp_name'], $target_file);
+    if ($_FILES['browseImage']['error'] != 0) {
+        $random_int = random_int(10000, 99999);
+        $imageFileType = pathinfo($_FILES['browseImage']['name'], PATHINFO_EXTENSION);
+        $target_file = './uploads/events/' . $random_int . '.' . $imageFileType;
+        move_uploaded_file($_FILES['browseImage']['tmp_name'], $target_file);
+    }
 
     $event->createEvent($_SESSION[USER_ID], $_POST['name'], $_POST['desc'], $_POST['location'],
         $_POST['start-time'], $_POST['end-time'], $target_file);
@@ -272,7 +274,7 @@ if (isset($_POST['submit'])) {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Citizen Pledge</a>
+            <a class="navbar-brand" href="./">Citizen Pledge</a>
             <form class="navbar-form navbar-left">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search">
@@ -286,12 +288,12 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="./">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><img src="<?= $_SESSION[USER_PIC] ?>" class="propic"/></li>
                 <li><a href="#" class="uname"><?= $_SESSION[USER_NAME] ?></a></li>
-                <li class="dropdown"><a href="#" class="" btn btn-primary dropdown-toggle" type="button"
+                <li class="dropdown"><a href="#" type="button"
                     data-toggle="dropdown"><span class="glyphicon glyphicon-bell notification-icon"></span>
                     Notifications<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
@@ -306,7 +308,7 @@ if (isset($_POST['submit'])) {
                         <li><a href="#">Gaurav messaged you!</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><a href="./logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
         </div>
     </div>
@@ -321,25 +323,25 @@ if (isset($_POST['submit'])) {
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="name">Event Name: </label>
-                    <input type="text" name="name" class="form-control" id="email">
+                    <input type="text" name="name" class="form-control" id="email" required>
                 </div>
                 <div class="form-group">
                     <label for="desc">Event Description: </label>
-                        <textarea class="form-control" name="desc" rows="4" id="desc"></textarea>
+                        <textarea class="form-control" name="desc" rows="4" id="desc" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="time">Timing: </label>
                     <div class="input-group time">
-                        <input type="datetime-local" name="start-time" class="form-control" placeholder="Start"/>
+                        <input type="datetime-local" name="start-time" class="form-control" required placeholder="Start"/>
                         <span class="input-group-addon">-</span>
-                        <input type="datetime-local" name="end-time" class="form-control end" placeholder="End"/>
+                        <input type="datetime-local" name="end-time" class="form-control end" required placeholder="End"/>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="location">Location: </label>
-                    <input type="text" name="location" class="form-control" id="email">
+                    <input type="text" name="location" class="form-control" id="email" required>
                 </div>
                 <div class="form-group">
                     <p class="img" id="im"><b>Image: </b></p>
@@ -347,7 +349,7 @@ if (isset($_POST['submit'])) {
                         <label id="click">Click to upload</label>
                         <img id="avatar" src='img/blank.gif' style="height: 200px; width:350px;">
                     </label>
-                    <input id="browse" type="file" name="browseImage" onchange="previewFile()">
+                    <input id="browse" type="file" name="browseImage" onchange="previewFile()" required>
                 </div>
             </div>
             <button type="submit" name="submit" class="btn btn-default bttn submit subeve"><b>Add Event</b></button>

@@ -74,7 +74,7 @@ class User
                 $_SESSION[USER_NAME] = $row['name'];
                 $_SESSION[USER_ID] = intval($row['id']);
                 $_SESSION[USER_TYPE_ID] = intval($row['type_id']);
-                $_SESSION[USER_PIC] = ($row['image_url'] == null) ? $row['image_url']: 'https://www.drupal.org/files/styles/grid-2/public/default-avatar.png';
+                $_SESSION[USER_PIC] = ($row['image_url'] != null) ? $row['image_url']: 'https://www.drupal.org/files/styles/grid-2/public/default-avatar.png';
                 return true;
             } else
                 return 'Cannot find you, Have you registered? Check email and password.';
@@ -124,11 +124,14 @@ class User
             $stmt->execute();
             $response = $stmt->fetch();
         }
-        $sql = 'SELECT email, mobile, description, head_of_ngo, name, image_url FROM users WHERE id=:ngo_id';
+        $sql = 'SELECT id, email, mobile, description, head_of_ngo, name, image_url FROM users WHERE id=:ngo_id';
         if ($stmt = $this->_db->prepare($sql)) {
             $stmt->bindParam('ngo_id', $ngo_id, PDO::PARAM_INT);
             $stmt->execute();
-            $response = array_merge($response, $stmt->fetch());
+            $row = $stmt->fetch();
+            if ($row['id'] == null)
+                return false;
+            $response = array_merge($response, $row);
             if ($response['image_url'] == null)
                 $response['image_url'] = 'https://www.drupal.org/files/styles/grid-2/public/default-avatar.png';
         }

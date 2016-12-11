@@ -9,6 +9,8 @@ if (isset($_GET['id']))
 else
     $ngo = $user->getNgoDetails($_SESSION[USER_ID]);
 
+if ($ngo == null) header('Location: ./');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -312,8 +314,9 @@ else
                 <li><img src="<?= $_SESSION[USER_PIC] ?>" class="propic"/></li>
                 <li><a href="./" class="uname"><?= $_SESSION[USER_NAME] ?></a></li>
                 <li class="dropdown"><a href="#" type="button"
-                    data-toggle="dropdown"><span class="glyphicon glyphicon-bell notification-icon"></span>
-                    Notifications<span class="caret"></span></a>
+                                        data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-bell notification-icon"></span>
+                        Notifications<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <ul class="text-right" id="notif"><a href="#">Dismiss all</a></ul>
                         <li><a href="#">Amy messaged you!</a></li>
