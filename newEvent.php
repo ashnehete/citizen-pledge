@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
     $event = new Event();
 
     // Image file upload
-    if ($_FILES['browseImage']['error'] != 0) {
+    if ($_FILES['browseImage']['error'] == 0) {
         $random_int = random_int(10000, 99999);
         $imageFileType = pathinfo($_FILES['browseImage']['name'], PATHINFO_EXTENSION);
         $target_file = './uploads/events/' . $random_int . '.' . $imageFileType;

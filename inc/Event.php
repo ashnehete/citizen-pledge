@@ -74,6 +74,8 @@ class Event
             $stmt->bindParam('id', $id, PDO::PARAM_INT);
             $stmt->execute();
             $row = $stmt->fetch();
+            if ($row['image_url'] == null)
+                $row['image_url'] = 'img/charity.jpg';
             return $row;
         }
     }
