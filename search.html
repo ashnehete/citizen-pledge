@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Add an Event</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  body{
+  font-family:Montserrat;
+  background-size: cover;
+ 	height:100vh;
+  }
+.navbar-custom {
+  border-radius:0;
+  background-color: #f23c2b;
+  border:none;
+}
+.navbar-custom .navbar-brand {
+  color: #ffffff;
+}
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-brand:focus {
+  background-color:#ed220f;
+}
+.navbar-custom .navbar-text {
+  color: #ffffff;
+}
+.navbar-custom .navbar-nav > li > a {
+  color: #ffffff;
+}
+.navbar-custom .navbar-nav > li > a:hover,
+.navbar-custom .navbar-nav > li > a:focus {
+  color: #ffffff;
+   background-color:#ed220f;
+}
+.navbar-custom .navbar-nav > .active > a,
+.navbar-custom .navbar-nav > .active > a:hover,
+.navbar-custom .navbar-nav > .active > a:focus {
+  color: #ffffff;
+  background-color: #C71F10;
+}
+.navbar-custom .navbar-nav > .disabled > a,
+.navbar-custom .navbar-nav > .disabled > a:hover,
+.navbar-custom .navbar-nav > .disabled > a:focus {
+  color: #cccccc;
+  background-color: transparent;
+}
+.navbar-custom .navbar-toggle {
+  border-color: #dddddd;
+}
+.navbar-custom .navbar-toggle:hover,
+.navbar-custom .navbar-toggle:focus {
+  background-color: #dddddd;
+}
+.navbar-custom .navbar-toggle .icon-bar {
+  background-color: #cccccc;
+}
+.navbar-custom .navbar-collapse,
+.navbar-custom .navbar-form {
+  border-color: #f23c2b;
+}
+.navbar-custom .navbar-nav > .dropdown > a:hover .caret,
+.navbar-custom .navbar-nav > .dropdown > a:focus .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+.navbar-custom .navbar-nav > .open > a,
+.navbar-custom .navbar-nav > .open > a:hover,
+.navbar-custom .navbar-nav > .open > a:focus {
+  background-color: #ed220f;
+  color: #ffffff;
+}
+.navbar-custom .navbar-nav > .open > a .caret,
+.navbar-custom .navbar-nav > .open > a:hover .caret,
+.navbar-custom .navbar-nav > .open > a:focus .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+.navbar-custom .navbar-nav > .dropdown > a .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+@media (max-width: 767) {
+  .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
+    color: #ffffff;
+  }
+  .navbar-custom .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-custom .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #ffffff;
+    background-color: transparent;
+  }
+  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #ffffff;
+    background-color: #ed220f;
+  }
+  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a,
+  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #cccccc;
+    background-color: transparent;
+  }
+}
+.navbar-custom .navbar-link {
+  color: #ffffff;
+}
+.navbar-custom .navbar-link:hover {
+  color: #ffffff;
+}
+.form-control{
+	border-radius:0;
+	width:280px !important;
+}
+.btn{
+	border-radius:0;
+	margin-right:20px !important;
+}
+.propic{
+	border-radius:100%;
+	padding:none;
+	height:2em;
+	margin-top:0.75em;
+}
+
+.container {
+ margin-top: 20px; 
+ background-color:white;
+ }
+.mb20 { 
+margin-bottom: 20px;
+ } 
+
+hgroup {
+ padding-left: 15px; border-bottom: 1px solid #ccc;
+  }
+hgroup h1 {
+ font-family: 500 normal 1.625em "Roboto",Arial,Verdana,sans-serif;
+  color: #f23c2b;
+   margin-top: 0;
+    line-height: 1.15; 
+ }
+hgroup h2.lead { 
+ color: #f23c2b;
+  margin: 0;
+  padding-bottom: 10px; 
+}
+.search-result .thumbnail {
+ border-radius: 0 !important; 
+ }
+.search-result:first-child {
+ margin-top: 0 !important; }
+.search-result { margin-top: 20px;
+ }
+.search-result .col-md-2 {
+ border-right: 1px dotted #ccc; min-height: 140px; 
+ }
+.search-result ul {
+ padding-left: 0 !important; list-style: none;  
+ }
+.search-result ul li { 
+  line-height: 30px; 
+  }
+.search-result ul li i {
+ padding-right: 5px;
+  }
+.search-result .col-md-7 {
+ position: relative; 
+ }
+.search-result h3 { 
+ margin-top: 0 !important;
+  margin-bottom: 10px !important;
+   }
+.search-result h3 > a, .search-result i { 
+color: #f23c2b !important; 
+}
+.search-result span.plus {
+ position: absolute; right: 0; top: 126px; 
+ }
+.search-result span.plus a {
+ background-color: #f23c2b;
+  padding: 5px 5px 3px 5px;
+  }
+.search-result span.plus a:hover {
+ background-color: #414141;
+  }
+.search-result span.plus a i {
+ color: #fff !important; 
+ }
+.search-result span.border {
+ display: block;
+  width: 97%;
+  margin: 0 15px;
+   border-bottom:
+    1px dotted #ccc;
+     }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Citizen Pledge</a>
+       <form class="navbar-form navbar-left">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Page 1</a></li>
+        <li><a href="#">Page 2</a></li>
+        <li><a href="#">Page 3</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><img src="https://www.drupal.org/files/profile_default.png" class="propic"></img></li>
+        <li><a href="#" class="uname"> Username</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+  </nav>
+  <div class="container">
+
+    <hgroup class="mb20">
+		<h1>Search Results</h1>
+		<h2 class="lead"><strong class="text-danger">3</strong> results were found for the search for <strong class="text-danger">Lorem</strong></h2>								
+	</hgroup>
+
+    <section class="col-xs-12 col-sm-6 col-md-12">
+		<article class="search-result row">
+			<div class="col-xs-12 col-sm-12 col-md-3">
+				<a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/people" alt="Lorem ipsum" /></a>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-2">
+				<ul class="meta-search">
+					<li><i class="glyphicon glyphicon-calendar"></i> <span>02/15/2014</span></li>
+					<li><i class="glyphicon glyphicon-time"></i> <span>4:28 pm</span></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+				<h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+                <span class="plus"><a href="#" title="Lorem ipsum"><i class="glyphicon glyphicon-plus"></i></a></span>
+			</div>
+			<span class="clearfix borda"></span>
+		</article>
+
+        <article class="search-result row">
+			<div class="col-xs-12 col-sm-12 col-md-3">
+				<a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/food" alt="Lorem ipsum" /></a>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-2">
+				<ul class="meta-search">
+					<li><i class="glyphicon glyphicon-calendar"></i> <span>02/13/2014</span></li>
+					<li><i class="glyphicon glyphicon-time"></i> <span>8:32 pm</span></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-7">
+				<h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+                <span class="plus"><a href="#" title="Lorem ipsum"><i class="glyphicon glyphicon-plus"></i></a></span>
+			</div>
+			<span class="clearfix borda"></span>
+		</article>
+
+		<article class="search-result row">
+			<div class="col-xs-12 col-sm-12 col-md-3">
+				<a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/sports" alt="Lorem ipsum" /></a>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-2">
+				<ul class="meta-search">
+					<li><i class="glyphicon glyphicon-calendar"></i> <span>01/11/2014</span></li>
+					<li><i class="glyphicon glyphicon-time"></i> <span>10:13 am</span></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-7">
+				<h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>						
+                <span class="plus"><a href="#" title="Lorem ipsum"><i class="glyphicon glyphicon-plus"></i></a></span>
+			</div>
+			<span class="clearfix border"></span>
+		</article>			
+
+	</section>
+</div>
+</body>
+</html>
