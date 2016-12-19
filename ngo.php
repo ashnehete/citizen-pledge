@@ -4,10 +4,16 @@ include_once 'inc/User.php';
 
 $user = new User($db);
 
-if (isset($_GET['id']))
+if (isset($_GET['id'])) {
     $ngo = $user->getNgoDetails($_GET['id']);
-else
+    $ngo['button'] = 'Follow';
+    $ngo['button_link'] = '#';
+}
+else {
     $ngo = $user->getNgoDetails($_SESSION[USER_ID]);
+    $ngo['button'] = '+ Add New Event';
+    $ngo['button_link'] = './newEvent.php';
+}
 
 if ($ngo == null) header('Location: ./');
 
@@ -170,7 +176,7 @@ if ($ngo == null) header('Location: ./');
         .picsec, .prosec, .eventsec {
             background-color: white;
             height: 552px;
-            width: 390px;
+            width: 340px;
             margin: 12px;
             margin-left: 40px;
         }
@@ -349,7 +355,9 @@ if ($ngo == null) header('Location: ./');
             </div>
             <div class="row">
                 <div class="col-sm-12 addEvent">
-                    <a href="./newEvent.php" class="btn btn-danger btn-block btn-lg">+ Add New Event</a>
+                    <a href="<?= $ngo['button_link'] ?>" class="btn btn-danger btn-block btn-lg">
+                        <?= $ngo['button'] ?>
+                    </a>
                 </div>
             </div>
         </div>
